@@ -67,6 +67,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <td class="p-4 text-yellow-400">${student.mediumSolved || 'N/A'}</td>
                     <td class="p-4 text-red-400">${student.hardSolved || 'N/A'}</td>
                 `;
+
+                //pin function
+                api.setGridOption('pinnedTopRowData', rows)
                 leaderboardBody.appendChild(row);
             });
         };
@@ -142,6 +145,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const sortedData = sortData(filteredData, 'hardSolved', hardSolvedDirection, true);
             renderLeaderboard(sortedData);
         });
+
+        const table = useMaterialReactTable({
+            columns,
+            data,
+            enableRowPinning: true,
+            rowPinningDisplayMode: 'top',
+          });
 
     } catch (error) {
         console.error('Error fetching data:', error);
